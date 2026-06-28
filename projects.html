@@ -3,7 +3,7 @@
 
 <head>
 
-<title>MARSA MISSIONS</title>
+<title>MARSA PROJECTS</title>
 
 <style>
 
@@ -53,7 +53,7 @@ box-shadow:0 0 25px #003b66;
 
 
 
-input{
+input,textarea{
 
 width:100%;
 
@@ -91,27 +91,15 @@ font-weight:bold;
 
 
 
-.mission{
+.project{
 
-margin-top:15px;
+margin-top:20px;
 
 padding:20px;
 
 background:#020914;
 
 border-radius:15px;
-
-border-left:4px solid #00eaff;
-
-}
-
-
-
-.status{
-
-color:#00ff88;
-
-font-weight:bold;
 
 }
 
@@ -129,9 +117,9 @@ font-weight:bold;
 
 <div class="header">
 
-<h1>MARSA MISSIONS</h1>
+<h1>MARSA PROJECTS</h1>
 
-<p>MISSION CONTROL CENTER</p>
+<p>MISSION RECORD CENTER</p>
 
 </div>
 
@@ -140,28 +128,29 @@ font-weight:bold;
 <div class="panel">
 
 
-<h2>CREATE MISSION</h2>
+<h2>CREATE PROJECT</h2>
 
 
-<input id="missionName"
-placeholder="MISSION NAME">
+<input id="title"
+placeholder="PROJECT NAME">
 
 
-<input id="missionStatus"
-placeholder="STATUS (e.g ACTIVE / PENDING / COMPLETE)">
+<textarea id="details"
+placeholder="PROJECT DETAILS"></textarea>
 
 
-
-<button onclick="addMission()">
-SAVE MISSION
+<button onclick="addProject()">
+SAVE PROJECT
 </button>
 
 
 
-<h2>MISSION LIST</h2>
+<h2>PROJECT DATABASE</h2>
 
 
-<div id="list"></div>
+<div id="list">
+
+</div>
 
 
 </div>
@@ -172,42 +161,42 @@ SAVE MISSION
 <script>
 
 
-let missions =
+let projects =
 JSON.parse(
-localStorage.getItem("MARSA_MISSIONS")
+localStorage.getItem("MARSA_PROJECTS")
 ) || [];
 
 
 
-function addMission(){
+function addProject(){
 
 
-let name =
-document.getElementById("missionName").value;
+let title =
+document.getElementById("title").value;
 
 
-let status =
-document.getElementById("missionStatus").value;
+let details =
+document.getElementById("details").value;
 
 
 
-if(name){
+if(title){
 
 
-missions.push({
+projects.push({
 
-name:name,
+name:title,
 
-status:status,
+info:details,
 
-time:new Date().toLocaleString()
+date:new Date().toLocaleString()
 
 });
 
 
 localStorage.setItem(
-"MARSA_MISSIONS",
-JSON.stringify(missions)
+"MARSA_PROJECTS",
+JSON.stringify(projects)
 );
 
 
@@ -232,19 +221,19 @@ document.getElementById("list");
 box.innerHTML="";
 
 
-missions.forEach(m=>{
+projects.forEach(p=>{
 
 
 box.innerHTML +=
 
 `
-<div class="mission">
+<div class="project">
 
-<h3>${m.name}</h3>
+<h3>${p.name}</h3>
 
-<p class="status">${m.status}</p>
+<p>${p.info}</p>
 
-<small>${m.time}</small>
+<small>${p.date}</small>
 
 </div>
 

@@ -1,106 +1,404 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MARSA System Boot</title>
+
+<title>MARSA CORE SYSTEM</title>
 
 <style>
+
+*{
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+
 body{
-    margin:0;
-    background:#020b18;
-    color:#00ffff;
-    font-family:Consolas, monospace;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
+
+margin:0;
+height:100vh;
+
+background:
+radial-gradient(circle,#12345a,#020611);
+
+color:#00eaff;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+overflow:hidden;
+
 }
 
-#terminal{
-    width:90%;
-    max-width:900px;
-    font-size:18px;
-    line-height:1.7;
-    text-shadow:0 0 10px #00ffff;
+
+body::before{
+
+content:"";
+
+position:absolute;
+
+width:200%;
+height:200%;
+
+background:
+linear-gradient(transparent,#00eaff22,transparent);
+
+animation:scan 5s linear infinite;
+
 }
 
-.cursor{
-    animation:blink .7s infinite;
+
+@keyframes scan{
+
+from{
+transform:translateY(-50%);
 }
 
-@keyframes blink{
-    50%{
-        opacity:0;
-    }
+to{
+transform:translateY(50%);
 }
+
+}
+
+
+
+.system{
+
+width:430px;
+
+padding:35px;
+
+background:#061426ee;
+
+border:1px solid #00eaff;
+
+border-radius:20px;
+
+box-shadow:
+
+0 0 30px #00eaff;
+
+text-align:center;
+
+z-index:2;
+
+}
+
+
+
+.logo{
+
+font-size:60px;
+
+font-weight:bold;
+
+letter-spacing:10px;
+
+text-shadow:0 0 20px #00eaff;
+
+}
+
+
+
+.subtitle{
+
+letter-spacing:5px;
+
+}
+
+
+
+.status{
+
+margin:20px;
+
+padding:10px;
+
+background:#00ff8833;
+
+border-radius:20px;
+
+}
+
+
+
+input{
+
+width:100%;
+
+padding:15px;
+
+margin-top:15px;
+
+background:#020914;
+
+color:white;
+
+border:1px solid #00eaff;
+
+border-radius:10px;
+
+}
+
+
+
+button{
+
+width:100%;
+
+padding:15px;
+
+margin-top:15px;
+
+background:#00eaff;
+
+border:none;
+
+border-radius:12px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+}
+
+
+
+button:hover{
+
+background:white;
+
+}
+
+
+
+#message{
+
+margin-top:15px;
+
+font-size:18px;
+
+}
+
+
+
 </style>
+
 </head>
+
+
 <body>
 
-<div id="terminal"></div>
+
+
+<div class="system">
+
+
+<div class="logo">
+MARSA
+</div>
+
+
+<div class="subtitle">
+CORE SYSTEM
+</div>
+
+
+
+<div class="status">
+● SYSTEM ONLINE
+</div>
+
+
+
+<h3>
+AUTHORIZED ACCESS ONLY
+</h3>
+
+
+
+<input id="username"
+placeholder="ENTER NAME">
+
+
+
+<input id="password"
+type="password"
+placeholder="ENTER PASSWORD">
+
+
+
+<button onclick="showPassword()">
+
+SHOW / HIDE PASSWORD
+
+</button>
+
+
+
+<button onclick="login()">
+
+ACCESS SYSTEM
+
+</button>
+
+
+
+<div id="message"></div>
+
+
+
+</div>
+
+
+
 
 <script>
-const terminal = document.getElementById("terminal");
 
-const lines = [
-"MARSA",
-"",
-"Mars Aerospace Research & Space Administration",
-"",
-"Initializing Core Systems...",
-"Loading Personnel Database...",
-"Loading Engineering Division...",
-"Loading Research Division...",
-"Loading Mission Control...",
-"Starting MARSA AI...",
-"Verifying Founder Records...",
-"",
-"[ F001 ] KATENDE MARVIN EINSTEIN",
-"[ F002 ] ZZIWA UMAR",
-"[ F003 ] JOEL DAVID MUNJI",
-"",
-"System Status: ONLINE",
-"",
-"WELCOME COMMANDER"
+
+// MARSA CORE USERS
+
+let users=[
+
+
+{
+name:"KATENDE MARVIN EINSTEIN",
+password:"MARSA001",
+role:"FOUNDER"
+},
+
+
+{
+name:"ZZIWA UMAR",
+password:"MARSA002",
+role:"MEMBER"
+},
+
+
+{
+name:"JOEL DAVID MUNJI",
+password:"MARSA003",
+role:"MEMBER"
+}
+
+
 ];
 
-let lineIndex = 0;
 
-function typeLine(text, callback){
-    let charIndex = 0;
-    let p = document.createElement("div");
-    terminal.appendChild(p);
 
-    function typeChar(){
-        if(charIndex < text.length){
-            p.innerHTML = text.substring(0,charIndex+1) +
-            '<span class="cursor">|</span>';
-            charIndex++;
-            setTimeout(typeChar,25);
-        }else{
-            p.innerHTML = text;
-            callback();
-        }
-    }
-    typeChar();
+
+// Load changed passwords
+
+let saved =
+localStorage.getItem("MARSA_USERS");
+
+
+if(saved){
+
+users = JSON.parse(saved);
+
 }
 
-function nextLine(){
-    if(lineIndex < lines.length){
-        typeLine(lines[lineIndex], ()=>{
-            lineIndex++;
-            setTimeout(nextLine,150);
-        });
-    }else{
-        setTimeout(()=>{
-            window.location.href="login.html";
-        },3000);
-    }
+
+
+
+
+function showPassword(){
+
+let box =
+document.getElementById("password");
+
+
+if(box.type==="password"){
+
+box.type="text";
+
 }
 
-nextLine();
+else{
+
+box.type="password";
+
+}
+
+}
+
+
+
+
+function login(){
+
+
+let name =
+document.getElementById("username").value;
+
+
+let pass =
+document.getElementById("password").value;
+
+
+
+let user =
+users.find(
+
+u =>
+
+u.name === name &&
+u.password === pass
+
+);
+
+
+
+if(user){
+
+
+localStorage.setItem(
+
+"ACTIVE_USER",
+
+JSON.stringify(user)
+
+);
+
+
+
+document.getElementById("message").innerHTML =
+"ACCESS GRANTED 🚀";
+
+
+
+setTimeout(()=>{
+
+
+window.location="dashboard.html";
+
+
+},1000);
+
+
+
+}
+
+else{
+
+
+document.getElementById("message").innerHTML =
+"ACCESS DENIED 🔒";
+
+
+}
+
+
+
+}
+
+
+
 </script>
 
+
 </body>
+
 </html>

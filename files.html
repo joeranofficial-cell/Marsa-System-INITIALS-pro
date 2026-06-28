@@ -3,7 +3,7 @@
 
 <head>
 
-<title>MARSA MISSIONS</title>
+<title>MARSA FILE CENTER</title>
 
 <style>
 
@@ -38,35 +38,26 @@ letter-spacing:10px;
 
 width:85%;
 margin:30px auto;
-
 background:#071a30;
-
 padding:30px;
-
 border-radius:20px;
-
 border:1px solid #00eaff;
-
 box-shadow:0 0 25px #003b66;
 
 }
 
 
 
-input{
+input,textarea{
 
 width:100%;
-
 padding:15px;
-
 margin:10px 0;
 
 background:#020914;
-
 color:white;
 
 border:1px solid #00eaff;
-
 border-radius:10px;
 
 }
@@ -76,42 +67,22 @@ border-radius:10px;
 button{
 
 background:#00eaff;
-
-border:0;
-
+border:none;
 padding:15px 30px;
-
 border-radius:20px;
-
 cursor:pointer;
-
 font-weight:bold;
 
 }
 
 
 
-.mission{
-
-margin-top:15px;
-
-padding:20px;
+.file{
 
 background:#020914;
-
+margin-top:20px;
+padding:20px;
 border-radius:15px;
-
-border-left:4px solid #00eaff;
-
-}
-
-
-
-.status{
-
-color:#00ff88;
-
-font-weight:bold;
 
 }
 
@@ -129,39 +100,39 @@ font-weight:bold;
 
 <div class="header">
 
-<h1>MARSA MISSIONS</h1>
+<h1>MARSA FILE CENTER</h1>
 
-<p>MISSION CONTROL CENTER</p>
+<p>SECURE INFORMATION STORAGE</p>
 
 </div>
+
 
 
 
 <div class="panel">
 
 
-<h2>CREATE MISSION</h2>
+<h2>CREATE RECORD</h2>
 
 
-<input id="missionName"
-placeholder="MISSION NAME">
+<input id="name" placeholder="FILE TITLE">
 
 
-<input id="missionStatus"
-placeholder="STATUS (e.g ACTIVE / PENDING / COMPLETE)">
+<textarea id="text"
+placeholder="WRITE INFORMATION"></textarea>
 
 
 
-<button onclick="addMission()">
-SAVE MISSION
+<button onclick="saveFile()">
+SAVE RECORD
 </button>
 
 
 
-<h2>MISSION LIST</h2>
+<h2>STORED FILES</h2>
 
 
-<div id="list"></div>
+<div id="files"></div>
 
 
 </div>
@@ -172,79 +143,84 @@ SAVE MISSION
 <script>
 
 
-let missions =
+let files =
+
 JSON.parse(
-localStorage.getItem("MARSA_MISSIONS")
+localStorage.getItem("MARSA_FILES")
 ) || [];
 
 
 
-function addMission(){
+
+function saveFile(){
 
 
 let name =
-document.getElementById("missionName").value;
+document.getElementById("name").value;
 
 
-let status =
-document.getElementById("missionStatus").value;
+let text =
+document.getElementById("text").value;
 
 
 
 if(name){
 
 
-missions.push({
+files.push({
 
-name:name,
+title:name,
 
-status:status,
+content:text,
 
-time:new Date().toLocaleString()
+date:new Date().toLocaleString()
 
 });
 
 
+
 localStorage.setItem(
-"MARSA_MISSIONS",
-JSON.stringify(missions)
+"MARSA_FILES",
+JSON.stringify(files)
 );
 
 
 
-display();
+showFiles();
 
 
 }
 
-
 }
 
 
 
-function display(){
+
+function showFiles(){
 
 
 let box =
-document.getElementById("list");
+document.getElementById("files");
 
 
 box.innerHTML="";
 
 
-missions.forEach(m=>{
+
+files.forEach(f=>{
 
 
 box.innerHTML +=
 
 `
-<div class="mission">
 
-<h3>${m.name}</h3>
+<div class="file">
 
-<p class="status">${m.status}</p>
+<h3>${f.title}</h3>
 
-<small>${m.time}</small>
+<p>${f.content}</p>
+
+<small>${f.date}</small>
 
 </div>
 
@@ -256,7 +232,8 @@ box.innerHTML +=
 }
 
 
-display();
+
+showFiles();
 
 
 </script>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>MARSA SETTINGS</title>
+
+<style>
+
+body{
+margin:0;
+background:#020611;
+color:#00eaff;
+font-family:'Segoe UI',sans-serif;
+}
+
+
+.header{
+
+padding:30px;
+text-align:center;
+background:#061426;
+box-shadow:0 0 25px #00eaff;
+
+}
+
+
+h1{
+
+letter-spacing:8px;
+font-size:40px;
+
+}
+
+
+
+.panel{
+
+width:80%;
+margin:40px auto;
+background:#071a30;
+padding:30px;
+border-radius:20px;
+border:1px solid #00eaff;
+box-shadow:0 0 25px #003b66;
+
+}
+
+
+
+.item{
+
+margin:20px 0;
+padding:20px;
+background:#020914;
+border-radius:15px;
+
+}
+
+
+
+button{
+
+padding:12px 25px;
+border:0;
+border-radius:20px;
+background:#00eaff;
+cursor:pointer;
+font-weight:bold;
+
+}
+
+
+.lock{
+
+color:#00ff88;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+<h1>MARSA SETTINGS</h1>
+
+<p>SYSTEM CONTROL PANEL</p>
+
+</div>
+
+
+
+
+<div class="panel">
+
+
+<div class="item">
+
+<h2>SECURITY</h2>
+
+<p class="lock">
+● ENCRYPTION ACTIVE
+</p>
+
+<p>
+PASSWORDS ARE HIDDEN
+</p>
+
+</div>
+
+
+
+<div class="item">
+
+<h2>CORE ACCOUNTS</h2>
+
+<p>
+AUTHORIZED USERS: 3
+</p>
+
+<p>
+ACCOUNT DELETION: LOCKED
+</p>
+
+</div>
+
+
+
+
+<div class="item">
+
+<h2>SYSTEM VERSION</h2>
+
+<p>
+MARSA CORE v1.0
+</p>
+
+</div>
+
+
+
+
+<div class="item">
+
+<h2>SESSION</h2>
+
+<button onclick="logout()">
+LOGOUT
+</button>
+
+</div>
+
+
+
+</div>
+
+
+
+
+<script>
+
+
+function logout(){
+
+localStorage.removeItem("ACTIVE_USER");
+
+window.location="../index.html";
+
+}
+
+
+</script>
+
+
+
+</body>
+
+</html>

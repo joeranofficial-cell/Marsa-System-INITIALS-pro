@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MARSA - Mission Control</title>
+    <link rel="stylesheet" href="css/marsa.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 class="title">MISSION CONTROL CENTER</h1>
+
+    <!-- Mission Creation -->
+    <div class="panel">
+        <h2>Create New Mission</h2>
+
+        <input type="text" id="missionName" placeholder="Mission Name"><br><br>
+
+        <select id="missionPriority">
+            <option value="LOW">LOW PRIORITY</option>
+            <option value="MEDIUM">MEDIUM PRIORITY</option>
+            <option value="HIGH">HIGH PRIORITY</option>
+            <option value="CRITICAL">CRITICAL</option>
+        </select><br><br>
+
+        <button onclick="createMission()">LAUNCH MISSION</button>
+    </div>
+
+    <!-- Mission List -->
+    <div class="panel">
+        <h2>Active Missions</h2>
+        <div id="missionList"></div>
+    </div>
+
+</div>
+
+<script src="js/missions.js"></script>
+
+</body>
+</html>

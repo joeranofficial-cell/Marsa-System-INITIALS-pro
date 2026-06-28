@@ -3,118 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MARSA SPACE COMMAND SYSTEM</title>
-<link rel="stylesheet" href="style.css">
-</head>
+<title>MARSA System Boot</title>
 
+<style>
+body{
+    margin:0;
+    background:#020b18;
+    color:#00ffff;
+    font-family:Consolas, monospace;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+#terminal{
+    width:90%;
+    max-width:900px;
+    font-size:18px;
+    line-height:1.7;
+    text-shadow:0 0 10px #00ffff;
+}
+
+.cursor{
+    animation:blink .7s infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:0;
+    }
+}
+</style>
+</head>
 <body>
 
-<!-- STAR BACKGROUND -->
-<div class="stars"></div>
+<div id="terminal"></div>
 
-<!-- BOOT SCREEN -->
-<div id="boot">
-    <h1>MARSA SYSTEM BOOTING...</h1>
-    <p>Initializing Space Command Interface</p>
-</div>
+<script>
+const terminal = document.getElementById("terminal");
 
-<!-- LOGIN -->
-<div id="loginScreen" class="login">
-    <div class="glass">
-        <h1 class="glow">MARSA</h1>
-        <p>Space Command Login</p>
+const lines = [
+"MARSA",
+"",
+"Mars Aerospace Research & Space Administration",
+"",
+"Initializing Core Systems...",
+"Loading Personnel Database...",
+"Loading Engineering Division...",
+"Loading Research Division...",
+"Loading Mission Control...",
+"Starting MARSA AI...",
+"Verifying Founder Records...",
+"",
+"[ F001 ] KATENDE MARVIN EINSTEIN",
+"[ F002 ] ZZIWA UMAR",
+"[ F003 ] JOEL DAVID MUNJI",
+"",
+"System Status: ONLINE",
+"",
+"WELCOME COMMANDER"
+];
 
-        <input id="username" placeholder="Username">
-        <input id="password" type="password" placeholder="Password">
+let lineIndex = 0;
 
-        <button onclick="login()">ACCESS SYSTEM</button>
-        <p id="loginMessage"></p>
-    </div>
-</div>
+function typeLine(text, callback){
+    let charIndex = 0;
+    let p = document.createElement("div");
+    terminal.appendChild(p);
 
-<!-- MAIN SYSTEM -->
-<div id="system" style="display:none;">
+    function typeChar(){
+        if(charIndex < text.length){
+            p.innerHTML = text.substring(0,charIndex+1) +
+            '<span class="cursor">|</span>';
+            charIndex++;
+            setTimeout(typeChar,25);
+        }else{
+            p.innerHTML = text;
+            callback();
+        }
+    }
+    typeChar();
+}
 
-<header class="glass header">
-    <h1>MARSA SPACE COMMAND</h1>
-    <p>Orbital Control • Research • Engineering</p>
-</header>
+function nextLine(){
+    if(lineIndex < lines.length){
+        typeLine(lines[lineIndex], ()=>{
+            lineIndex++;
+            setTimeout(nextLine,150);
+        });
+    }else{
+        setTimeout(()=>{
+            window.location.href="login.html";
+        },3000);
+    }
+}
 
-<nav class="glass nav">
-    <button onclick="showSection('dashboard')">DASHBOARD</button>
-    <button onclick="showSection('members')">CREW</button>
-    <button onclick="showSection('departments')">UNITS</button>
-    <button onclick="showSection('mission')">MISSION</button>
-    <button onclick="showSection('projects')">PROJECTS</button>
-</nav>
+nextLine();
+</script>
 
-<section id="dashboard" class="page glass">
-    <h2>CONTROL DASHBOARD</h2>
-
-    <div class="cards">
-        <div class="card">
-            <h3>CREW</h3>
-            <p id="memberCount">3</p>
-        </div>
-
-        <div class="card">
-            <h3>UNITS</h3>
-            <p>15</p>
-        </div>
-
-        <div class="card">
-            <h3>SYSTEM STATUS</h3>
-            <p class="online">ONLINE ⚡</p>
-        </div>
-    </div>
-</section>
-
-<section id="members" class="page glass" style="display:none;">
-    <h2>CREW DATABASE</h2>
-
-    <input id="searchMember" placeholder="Search crew..." onkeyup="searchMember()">
-
-    <div class="member-form">
-        <input id="memberName" placeholder="Full Name">
-        <input id="memberRole" placeholder="Role">
-        <button onclick="addMember()">ADD CREW</button>
-    </div>
-
-    <ul id="memberList">
-        <li>KATENDE MARVIN EINSTEIN - COMMANDER</li>
-        <li>JOEL DAVID MUNJI - ENGINEER</li>
-        <li>ZZIWA UMAR KALEL - OPS</li>
-    </ul>
-</section>
-
-<section id="departments" class="page glass" style="display:none;">
-    <h2>SPACE UNITS</h2>
-    <ul>
-        <li>Mission Control</li>
-        <li>Engineering Core</li>
-        <li>AI Systems</li>
-        <li>Orbital Research</li>
-        <li>Security Grid</li>
-        <li>Launch Division</li>
-    </ul>
-</section>
-
-<section id="mission" class="page glass" style="display:none;">
-    <h2>MISSION PROTOCOL</h2>
-    <p>Advance humanity into space exploration and scientific discovery.</p>
-</section>
-
-<section id="projects" class="page glass" style="display:none;">
-    <h2>ACTIVE PROJECTS</h2>
-    <ul>
-        <li>Marsa Orbital Command</li>
-        <li>AI Space Core</li>
-        <li>Deep Space Research</li>
-    </ul>
-</section>
-
-</div>
-
-<script src="script.js"></script>
 </body>
 </html>

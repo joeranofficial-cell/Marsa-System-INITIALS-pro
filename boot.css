@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    background: radial-gradient(circle at center, #020b18 0%, #000 100%);
+    color: #00ffff;
+    font-family: Consolas, monospace;
+    overflow: hidden;
+}
+
+/* TERMINAL CONTAINER */
+#terminal {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    padding-top: 60px;
+    font-size: 18px;
+    line-height: 1.7;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+/* LINE ANIMATION */
+#terminal div {
+    opacity: 0;
+    transform: translateY(5px);
+    animation: fadeIn 0.3s forwards;
+}
+
+/* FADE EFFECT */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* BLINKING CURSOR */
+.cursor {
+    display: inline-block;
+    width: 10px;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* GLOW EFFECT FOR IMPORTANT TEXT */
+.highlight {
+    color: #00ffcc;
+    text-shadow: 0 0 15px #00ffff;
+}
+
+/* SYSTEM STATUS LINE */
+.status {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+/* WARNING STYLE (optional future use) */
+.warning {
+    color: #ff0044;
+    text-shadow: 0 0 10px #ff0044;
+}

@@ -1,0 +1,95 @@
+body {
+    margin: 0;
+    background: radial-gradient(circle at center, #020b18 0%, #000 100%);
+    color: #00ffff;
+    font-family: Consolas, monospace;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* LOGIN BOX */
+.login-box {
+    width: 420px;
+    padding: 30px;
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 25px #00ffff;
+    background: rgba(0, 10, 20, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+/* TITLE */
+.login-box h1 {
+    text-align: center;
+    letter-spacing: 4px;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+/* SUBTITLE */
+.subtitle {
+    text-align: center;
+    font-size: 13px;
+    margin-bottom: 20px;
+    color: #00ffcc;
+}
+
+/* LABELS */
+label {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* INPUTS */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    background: #001122;
+    border: 1px solid #00ffff;
+    color: #00ffff;
+    outline: none;
+    transition: 0.2s;
+}
+
+input:focus {
+    box-shadow: 0 0 10px #00ffff;
+    border-color: #00ffcc;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 12px;
+    background: #00ffff;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #00cccc;
+    box-shadow: 0 0 15px #00ffff;
+}
+
+/* STATUS TEXT */
+#status {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* ERROR STATE */
+.error {
+    color: #ff0044;
+}
+
+/* SUCCESS STATE */
+.success {
+    color: #00ff88;
+}

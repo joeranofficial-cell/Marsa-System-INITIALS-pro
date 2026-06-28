@@ -1,0 +1,16 @@
+.panel {
+    border: 1px solid #00f7ff;
+    padding: 20px;
+    margin: 20px auto;
+    width: 70%;
+    box-shadow: 0 0 10px #00f7ff;
+}
+
+input, select {
+    width: 60%;
+    padding: 8px;
+    background: black;
+    color: #00f7ff;
+    border: 1px solid #00f7ff;
+    font-family: monospace;
+}

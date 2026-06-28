@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MARSA Secure Access</title>
+
+<style>
+body{
+    background:#020b18;
+    color:#00ffff;
+    font-family:Consolas, monospace;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-box{
+    width:420px;
+    padding:30px;
+    border:2px solid #00ffff;
+    box-shadow:0 0 20px #00ffff;
+}
+
+h1{text-align:center;}
+
+.subtitle{
+    text-align:center;
+    margin-bottom:25px;
+    font-size:14px;
+}
+
+label{display:block;margin-top:15px;}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:5px;
+    background:#001122;
+    color:#00ffff;
+    border:1px solid #00ffff;
+}
+
+button{
+    width:100%;
+    margin-top:25px;
+    padding:12px;
+    background:#00ffff;
+    color:#000;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+#status{
+    margin-top:15px;
+    text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+<h1>MARSA</h1>
+<div class="subtitle">SECURE COMMAND ACCESS</div>
+
+<label>Personnel ID</label>
+<input type="text" id="userid" placeholder="e.g. F001">
+
+<label>Password</label>
+<input type="password" id="password">
+
+<button onclick="login()">ACCESS SYSTEM</button>
+
+<div id="status"></div>
+
+</div>
+
+<script>
+/* FUTURE READY USER DATABASE (temporary) */
+const users = {
+    "F001": { pass: "einstein", role: "FOUNDER" },
+    "F002": { pass: "umar", role: "ENGINEER" },
+    "F003": { pass: "munji", role: "DEPUTY" }
+};
+
+function login(){
+
+const id = document.getElementById("userid").value.trim();
+const pass = document.getElementById("password").value;
+const status = document.getElementById("status");
+
+if(users[id] && users[id].pass === pass){
+
+    status.innerHTML = "ACCESS GRANTED - " + users[id].role;
+
+    /* Store session for system use */
+    localStorage.setItem("marsa_user", JSON.stringify({
+        id: id,
+        role: users[id].role
+    }));
+
+    setTimeout(()=>{
+        window.location.href="dashboard.html";
+    },1200);
+
+}else{
+    status.innerHTML = "ACCESS DENIED";
+    status.style.color = "red";
+}
+}
+</script>
+
+</body>
+</html>

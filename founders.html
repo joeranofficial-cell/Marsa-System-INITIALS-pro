@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MARSA Founding Council</title>
+
+<style>
+body{
+    background:#020b18;
+    color:#00ffff;
+    font-family:Consolas, monospace;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.founder{
+    border:2px solid #00ffff;
+    box-shadow:0 0 15px #00ffff;
+    padding:20px;
+    margin-bottom:25px;
+}
+
+.row{
+    margin:8px 0;
+}
+
+.protected{
+    color:#00ff88;
+    font-weight:bold;
+}
+
+button{
+    margin-top:15px;
+    padding:10px 20px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>MARSA FOUNDING COUNCIL</h1>
+
+<div class="founder">
+
+<div class="row"><b>Founder ID:</b> F001</div>
+<div class="row"><b>Name:</b> KATENDE MARVIN EINSTEIN</div>
+<div class="row"><b>Position:</b> Founder & Chief Architect</div>
+<div class="row"><b>Access Level:</b> 10</div>
+<div class="row"><b>Status:</b> <span class="protected">PROTECTED</span></div>
+
+<button onclick="denyDelete()">
+Delete Founder
+</button>
+
+</div>
+
+<div class="founder">
+
+<div class="row"><b>Founder ID:</b> F002</div>
+<div class="row"><b>Name:</b> ZZIWA UMAR</div>
+<div class="row"><b>Position:</b> Manager & Lead Engineer</div>
+<div class="row"><b>Access Level:</b> 9</div>
+<div class="row"><b>Status:</b> <span class="protected">PROTECTED</span></div>
+
+<button onclick="denyDelete()">
+Delete Founder
+</button>
+
+</div>
+
+<div class="founder">
+
+<div class="row"><b>Founder ID:</b> F003</div>
+<div class="row"><b>Name:</b> JOEL DAVID MUNJI</div>
+<div class="row"><b>Position:</b> Deputy Founder</div>
+<div class="row"><b>Access Level:</b> 9</div>
+<div class="row"><b>Status:</b> <span class="protected">PROTECTED</span></div>
+
+<button onclick="denyDelete()">
+Delete Founder
+</button>
+
+</div>
+
+<script>
+function denyDelete(){
+    alert(
+    "ACCESS DENIED\n\nFounding Council records are protected."
+    );
+}
+</script>
+
+</body>
+</html>

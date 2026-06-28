@@ -1,216 +1,128 @@
-// ===== MARSA SYSTEM =====
+console.log("MARSA SYSTEM INITIALIZED 🚀");
 
-// Default Admin Account
+// ===== ADMIN LOGIN =====
 const ADMIN_USERNAME = "marsaadmin";
 const ADMIN_PASSWORD = "marsa123";
 
-// Load saved members
+// ===== DATABASE =====
 let members = JSON.parse(localStorage.getItem("marsaMembers")) || [];
 
-// Default members
+// Default crew setup
 if (members.length === 0) {
-members = [
-{
-name: "KATENDE MARVIN EINSTEIN",
-role: "Founder & Director General"
-},
-{
-name: "JOEL DAVID MUNJI",
-role: "Deputy Director"
-},
-{
-name: "ZZIWA UMAR",
-role: "Operations Director"
-}
-];
-
-saveMembers();
-
+    members = [
+        { name: "KATENDE MARVIN EINSTEIN", role: "Founder & Director General" },
+        { name: "JOEL DAVID MUNJI", role: "Deputy Director" },
+        { name: "ZZIWA UMAR", role: "Operations Director" }
+    ];
+    saveMembers();
 }
 
-// Login
+// ===== LOGIN SYSTEM =====
 function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-let username =  
-    document.getElementById("username").value;  
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("system").style.display = "block";
 
-let password =  
-    document.getElementById("password").value;  
-
-if (  
-    username === ADMIN_USERNAME &&  
-    password === ADMIN_PASSWORD  
-) {  
-
-    document.getElementById("loginScreen")  
-        .style.display = "none";  
-
-    document.getElementById("system")  
-        .style.display = "block";  
-
-    renderMembers();  
-
-} else {  
-
-    document.getElementById("loginMessage")  
-        .innerHTML = "Invalid username or password";  
-
+        renderMembers();
+        showSection("dashboard");
+    } else {
+        document.getElementById("loginMessage").innerText =
+            "ACCESS DENIED ❌";
+    }
 }
 
-}
-
-// Save Data
+// ===== SAVE DATA =====
 function saveMembers() {
-
-localStorage.setItem(  
-    "marsaMembers",  
-    JSON.stringify(members)  
-);
-
+    localStorage.setItem("marsaMembers", JSON.stringify(members));
 }
 
-// Render Members
+// ===== RENDER MEMBERS =====
 function renderMembers() {
+    const list = document.getElementById("memberList");
+    if (!list) return;
 
-const list =  
-    document.getElementById("memberList");  
+    list.innerHTML = "";
 
-list.innerHTML = "";  
+    members.forEach((member, index) => {
+        const li = document.createElement("li");
 
-members.forEach((member, index) => {  
+        li.innerHTML = `
+            <strong>${member.name}</strong><br>
+            ${member.role}<br><br>
+            <button onclick="deleteMember(${index})">DELETE</button>
+        `;
 
-    const li =  
-        document.createElement("li");  
+        list.appendChild(li);
+    });
 
-    li.innerHTML = `  
-        <strong>${member.name}</strong>  
-        <br>  
-        ${member.role}  
-        <br><br>  
-        <button onclick="deleteMember(${index})">  
-            Delete  
-        </button>  
-    `;  
-
-    list.appendChild(li);  
-
-});  
-
-document.getElementById("memberCount")  
-    .innerText = members.length;
-
+    const counter = document.getElementById("memberCount");
+    if (counter) counter.innerText = members.length;
 }
 
-// Add Member
+// ===== ADD MEMBER =====
 function addMember() {
+    const name = document.getElementById("memberName").value;
+    const role = document.getElementById("memberRole").value;
 
-let name =  
-    document.getElementById("memberName").value;  
+    if (!name.trim() || !role.trim()) {
+        alert("Please fill all fields");
+        return;
+    }
 
-let role =  
-    document.getElementById("memberRole").value;  
+    members.push({ name, role });
+    saveMembers();
+    renderMembers();
 
-if (  
-    name.trim() === "" ||  
-    role.trim() === ""  
-) {  
-    alert("Fill all fields");  
-    return;  
-}  
-
-members.push({  
-    name,  
-    role  
-});  
-
-saveMembers();  
-
-renderMembers();  
-
-document.getElementById("memberName").value = "";  
-document.getElementById("memberRole").value = "";
-
+    document.getElementById("memberName").value = "";
+    document.getElementById("memberRole").value = "";
 }
 
-// Delete Member
+// ===== DELETE MEMBER =====
 function deleteMember(index) {
-
-if (  
-    confirm(  
-        "Delete this member?"  
-    )  
-) {  
-
-    members.splice(index, 1);  
-
-    saveMembers();  
-
-    renderMembers();  
-
+    if (confirm("Delete this crew member?")) {
+        members.splice(index, 1);
+        saveMembers();
+        renderMembers();
+    }
 }
 
-}
-
-// Search Member
+// ===== SEARCH =====
 function searchMember() {
+    const input = document
+        .getElementById("searchMember")
+        .value
+        .toLowerCase();
 
-let input =  
-    document.getElementById("searchMember")  
-        .value  
-        .toLowerCase();  
-
-let items =  
-    document.querySelectorAll(  
-        "#memberList li"  
-    );  
-
-items.forEach(item => {  
-
-    let text =  
-        item.innerText.toLowerCase();  
-
-    if (  
-        text.includes(input)  
-    ) {  
-
-        item.style.display = "block";  
-
-    } else {  
-
-        item.style.display = "none";  
-
-    }  
-
-});
-
+    document.querySelectorAll("#memberList li").forEach(item => {
+        item.style.display = item.innerText.toLowerCase().includes(input)
+            ? "block"
+            : "none";
+    });
 }
 
-// Navigation
+// ===== NAVIGATION =====
 function showSection(id) {
+    document.querySelectorAll(".page").forEach(page => {
+        page.style.display = "none";
+    });
 
-let pages =  
-    document.querySelectorAll(".page");  
-
-pages.forEach(page => {  
-
-    page.style.display = "none";  
-
-});  
-
-document.getElementById(id)  
-    .style.display = "block";
-
+    const target = document.getElementById(id);
+    if (target) target.style.display = "block";
 }
 
-// Auto Render
-window.onload = function () {
+// ===== SYSTEM BOOT =====
+window.onload = () => {
+    console.log("Checking MARSA database...");
 
-if (  
-    document.getElementById("memberList")  
-) {  
+    if (document.getElementById("memberList")) {
+        renderMembers();
+    }
 
-    renderMembers();  
-
-}
-
+    // auto open dashboard if system already visible
+    if (document.getElementById("system")) {
+        showSection("dashboard");
+    }
 };
